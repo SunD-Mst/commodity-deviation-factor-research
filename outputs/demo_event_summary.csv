@@ -1,0 +1,5 @@
+threshold,holding_window_minutes,event_days,demo_hit_rate
+0.75,15,2,0.5
+0.75,30,2,0.5
+0.9,15,2,0.5
+0.9,30,2,0.5
