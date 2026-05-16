@@ -1,44 +1,51 @@
-# Commodity Intraday Deviation Factor Research (Public Demo)
+# 商品期货日内偏离因子研究（公开演示版）
 
-This public version demonstrates a research workflow for intraday commodity futures deviation factors. It is designed for portfolio and interview review: the code is runnable, the research structure is complete, and sensitive trading details are intentionally simplified.
+本公开版本展示了商品期货日内偏离因子的完整研究流程。  
+该项目面向作品集展示与面试评审：代码可直接运行，研究结构完整，但有意简化了敏感的交易细节。
 
-## Project Goal
+## 项目目标
 
-Build a reproducible framework for studying whether opening-range deviation structure can describe later intraday volatility states.
+构建一个可复现的研究框架，用于分析：
 
-The public repository focuses on research process rather than deployable trading rules:
+> 开盘区间偏离结构，是否能够描述后续日内波动状态与路径特征。
 
-- data loading and timestamp normalization
-- opening-range reference construction
-- ATR-normalized deviation factor calculation
-- historical same-time percentile calculation
-- event-study style validation
-- multi-curve visualization
-- simplified strategy research interface
+该公共仓库聚焦于研究过程，而非可直接部署的交易规则。
 
-## Research Question
+主要内容包括：
 
-Can the early-session deviation from the opening-range midpoint provide useful information about later intraday deviation behavior?
+- 数据加载与时间戳标准化
+- 开盘区间基准构建
+- ATR 标准化偏离因子计算
+- 历史同期百分位计算
+- 事件研究式验证
+- Multi 曲线可视化
+- 简化版策略研究接口
 
-This public demo uses mock data and neutral example parameters. It should not be interpreted as a trading recommendation or as a disclosure of private research rules.
+## 研究问题
 
-## Factor Definition
+开盘区间形成后，价格相对开盘区间中点的阶段性偏离，  
+能否为后续日内偏离延续、波动扩张或均值回归提供可分析的信息？
 
-- `OR_mid`: midpoint of the opening range.
-- `abs_deviation`: absolute distance between close and `OR_mid`, normalized by previous ATR.
-- `deviation_pct`: historical same-time percentile of current `abs_deviation`, calculated with prior dates only.
+本公开演示使用模拟数据与中性示例参数，  
+不应被解读为交易建议，也不构成私人研究规则的披露。
 
-## Research Workflow
+## 因子定义
 
-1. Load sample intraday OHLCV data.
-2. Build opening-range high, low, and midpoint.
-3. Calculate prior ATR and normalized deviation.
-4. Rebuild historical same-time percentiles without future leakage.
-5. Run a small event study with demonstration thresholds.
-6. Generate demo curves and a demo summary.
-7. Run a simplified strategy interface with placeholder logic.
+- `OR_mid`：开盘区间高点与低点的中点。
+- `abs_deviation`：价格在当前观察阶段内相对 `OR_mid` 的最远偏离距离，并使用前序 ATR 标准化。
+- `deviation_pct`：当前 `abs_deviation` 在历史同期样本中的百分位数，仅使用先前日期计算。
 
-## Project Structure
+## 研究流程
+
+1. 加载样本日内 OHLCV 数据。
+2. 构建开盘区间高点、低点及中点。
+3. 计算前序 ATR 与标准化偏离指标。
+4. 重建不含未来数据泄露的历史同期百分位。
+5. 使用演示阈值运行小型事件研究。
+6. 生成示例曲线与统计摘要。
+7. 运行带有占位逻辑的简化策略研究接口。
+
+## 项目结构
 
 ```text
 public_commodity_deviation_factor_research/
@@ -56,52 +63,3 @@ public_commodity_deviation_factor_research/
     public_factor_research_demo.ipynb
   outputs/
     .gitkeep
-```
-
-## How To Run
-
-Install dependencies:
-
-```powershell
-pip install -r requirements.txt
-```
-
-Run the public demo:
-
-```powershell
-python src/factor_research_public.py
-```
-
-Expected demo outputs:
-
-- `outputs/demo_factor_rows.csv`
-- `outputs/demo_event_summary.csv`
-- `outputs/demo_deviation_curve.png`
-- `outputs/demo_strategy_summary.csv`
-
-These outputs are generated from mock data and are only intended to demonstrate the research framework.
-
-## Desensitization Notes
-
-The public version does not include:
-
-- real intraday market data
-- full parameter search ranges
-- private filter combinations
-- effective strategy decision logic
-- private research reports
-- complete backtest trade logs
-- complete event-result CSV files
-
-The strategy module uses `simplified_rule()` and `demo_strategy()` as public placeholders. Comments in the code mark them as demonstration logic; private research rules are not disclosed.
-
-## What This Demo Shows
-
-This project is meant to show the engineering and research workflow behind a factor study:
-
-- clean data interfaces
-- leakage-aware historical features
-- event-study design
-- visualization pipeline
-- basic strategy-prototyping interface
-- risk-aware public communication
